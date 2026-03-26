@@ -76,7 +76,7 @@ int main()
 {
     srand((unsigned)time(NULL));
     cout << "\n\n-------------------------------------------------------------------------------------------------\n\n";
-    cout << "Problem #05 : Write a program to fill array with max size 100 with random numbers from 1 to 100, copy only prime numbers to another array and print it.\n ";
+    cout << "Problem #29 : Write a program to fill array with max size 100 with random numbers from 1 to 100, copy only prime numbers to another array and print it.\n ";
     cout << "\tex  : Enter how many randmon number to be created in array : 10\n\t=>\t[ Array 1 elements before copy ] Array elements : 6 1 80 15 21 29 14 88 5 65 \n\t\t[ Prime Numbers in Array 2 ] Array elements : 29 5\n\n";
     cout << "------------------------\n\n";
     int arrLength = ReadPositiveNumber("Enter how many randmon number to be created in array : ");

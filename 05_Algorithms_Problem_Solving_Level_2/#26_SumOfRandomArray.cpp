@@ -52,7 +52,7 @@ int main()
 {
     srand((unsigned)time(NULL));
     cout << "\n\n-------------------------------------------------------------------------------------------------\n\n";
-    cout << "Problem #05 : Write a program to fill array with max size 100 with random numbers from 1 to 100, then print Sum of all numbers\n";
+    cout << "Problem #26 : Write a program to fill array with max size 100 with random numbers from 1 to 100, then print Sum of all numbers\n";
     cout << "\tex  : Enter how many randmon number to be created in array : 5\n\t=>\tArray elements : 41 30 88 94 4 \n\t\tSum of all numbers in array is : 257\n\n";
     cout << "------------------------\n\n";
     int arrLength = ReadPositiveNumber("Enter how many randmon number to be created in array : ");

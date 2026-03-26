@@ -50,7 +50,7 @@ int main()
 {
     srand((unsigned)time(NULL));
     cout << "\n\n-------------------------------------------------------------------------------------------------\n\n";
-    cout << "Problem #05 : Write a program to fill array two arrays with max size 100 with random numbers from 1 to 100, sum their elements in a third array and print the results.\n ";
+    cout << "Problem #30 : Write a program to fill array two arrays with max size 100 with random numbers from 1 to 100, sum their elements in a third array and print the results.\n ";
     cout << "\tex  : Enter how many randmon number to be created in array : 5\n\t=>\tArray 1 elements  : 73 73 70 70 18\n\t\tArray 2 elements  : 27 96 55 51 15\n\t\tSum of two arrays : 100 169 125 121 33 \n\n";
     cout << "------------------------\n\n";
     int arrLength = ReadPositiveNumber("Enter how many randmon number to be created in array : ");

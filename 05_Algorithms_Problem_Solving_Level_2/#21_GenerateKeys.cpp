@@ -84,7 +84,7 @@ int main()
 {
     srand((unsigned)time(NULL));
     cout << "\n\n-------------------------------------------------------------------------------------------------\n\n";
-    cout << "Problem #05 : Write a program to read how many keys to generate and print them on the screen.\n ";
+    cout << "Problem #21 : Write a program to read how many keys to generate and print them on the screen.\n ";
     cout << "\tex  : Enter how many Keys to be generated :  2  \n\t=>\t Key [1] : LCSJ-HHXW-DYJJ-JDQW\n\t\t Key [2] : DTIL-ZNMO-YMJF-HGHM\n\n ";
     int numberOfKeys = ReadPositiveNumber("Enter how many Keys to be generated : ");
     GenerateKeys(numberOfKeys);

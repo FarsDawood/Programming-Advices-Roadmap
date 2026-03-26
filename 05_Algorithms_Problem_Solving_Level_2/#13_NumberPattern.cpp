@@ -1,7 +1,6 @@
 #include <iostream>
 using namespace std;
 
-
 int ReadPositiveNumber(string message)
 {
     int number;
@@ -10,11 +9,12 @@ int ReadPositiveNumber(string message)
         cout << message;
         cin >> number;
     } while (number <= 0);
-    
+
     return number;
 }
 
-void PrintInvertedNumberPattern(int number){
+void PrintInvertedNumberPattern(int number)
+{
     cout << "\n\n-------------------------------------------------------------------------------------------------\n\n";
 
     cout << "The Number Pattern is : \n";
@@ -28,15 +28,13 @@ void PrintInvertedNumberPattern(int number){
         cout << endl;
     }
     cout << "\n-------------------------------------------------------------------------------------------------\n\n";
-    
 }
-
 
 int main()
 {
     cout << "\n\n-------------------------------------------------------------------------------------------------\n\n";
-    cout << "Problem #05 : Write a program to read a number and print inverted pattern as follows?\n";
-    cout <<"\tex  : 3 => \n\t\t1 \n\t\t22 \n\t\t333 \n\t, 5 => \n\t\t1 \n\t\t22 \n\t\t333 \n\t\t4444 \n\t\t55555\n\n";
+    cout << "Problem #13 : Write a program to read a number and print inverted pattern as follows?\n";
+    cout << "\tex  : 3 => \n\t\t1 \n\t\t22 \n\t\t333 \n\t, 5 => \n\t\t1 \n\t\t22 \n\t\t333 \n\t\t4444 \n\t\t55555\n\n";
     PrintInvertedNumberPattern(ReadPositiveNumber("Enter Positive Number : "));
     return 0;
 }

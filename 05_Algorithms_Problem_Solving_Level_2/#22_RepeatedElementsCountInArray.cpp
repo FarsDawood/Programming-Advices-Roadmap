@@ -60,7 +60,7 @@ int main()
 {
     srand((unsigned)time(NULL));
     cout << "\n\n-------------------------------------------------------------------------------------------------\n\n";
-    cout << "Problem #05 : Write a program to read N elements and store them in array then print all array elements and ask  \n\t      for a number to check, then print how many number a certain element repeated in that array.\n";
+    cout << "Problem #22 : Write a program to read N elements and store them in array then print all array elements and ask  \n\t      for a number to check, then print how many number a certain element repeated in that array.\n";
     cout << "\tex  :   Enter how many elements in array : 3\n\t\tEnter array elements: \n\t\t\tElement[1] : 1 \n\t\t\tElement[2] : 1 \n\t\t\tElement[3] : 2\n\t\tEnter the number you want to check : 1\n\t\tArray elements: 1 1 2 \n\t\tNumber[1] is repeated[2] time(s)\n\n ";
     int arrLength;
     int arr[1000];

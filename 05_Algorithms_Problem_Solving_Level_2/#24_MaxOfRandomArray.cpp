@@ -55,7 +55,7 @@ int main()
 {
     srand((unsigned)time(NULL));
     cout << "\n\n-------------------------------------------------------------------------------------------------\n\n";
-    cout << "Problem #05 : Write a program to fill array with max size 100 with random numbers from 1 to 100, then print Max\n";
+    cout << "Problem #24 : Write a program to fill array with max size 100 with random numbers from 1 to 100, then print Max\n";
     cout << "\tex  : Enter how many randmon number to be created in array : 5\n\t=>\tArray elements : 41 30 88 94 4 \n\t\tMax number in array is : 94\n\n";
     cout << "------------------------\n\n";
     int arrLength = ReadPositiveNumber("Enter how many randmon number to be created in array : ");

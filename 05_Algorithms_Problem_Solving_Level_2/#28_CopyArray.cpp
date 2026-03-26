@@ -49,7 +49,7 @@ int main()
 {
     srand((unsigned)time(NULL));
     cout << "\n\n-------------------------------------------------------------------------------------------------\n\n";
-    cout << "Problem #05 : Write a program to fill array with max size 100 with random numbers from 1 to 100, copy it to another array and print it.\n ";
+    cout << "Problem #28 : Write a program to fill array with max size 100 with random numbers from 1 to 100, copy it to another array and print it.\n ";
     cout << "\tex  : Enter how many randmon number to be created in array : 5\n\t=>\tArray 1 elements : 41 30 88 94 4 \n\t\tArray 2 elements after copy : 41 30 88 94 4\n\n";
     cout << "------------------------\n\n";
     int arrLength = ReadPositiveNumber("Enter how many randmon number to be created in array : ");
