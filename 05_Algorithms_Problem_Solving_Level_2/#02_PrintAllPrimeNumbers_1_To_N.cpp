@@ -10,13 +10,20 @@ int ReadPositiveNumber(string message)
         cout << message;
         cin >> number;
     } while (number <= 0);
-    
+
     return number;
 }
 
-enum enPrimeNumber {Prime = 1 , NotPrime = 2};
+enum enPrimeNumber
+{
+    Prime = 1,
+    NotPrime = 2
+};
 
-enPrimeNumber CheckPrime(int number){
+enPrimeNumber CheckPrime(int number)
+{
+    if (number == 1)
+        return enPrimeNumber::NotPrime;
     int newNumber = sqrt(number); // sqrt better than number/2 because it is the biggest possible factor for a number
     for (int i = 2; i <= newNumber; i++)
     {
@@ -24,25 +31,23 @@ enPrimeNumber CheckPrime(int number){
         {
             return enPrimeNumber::NotPrime;
         }
-        
     }
     return enPrimeNumber::Prime;
 }
 
-void PrintPrimeNumbersFrom_1_To_N(int number) {
+void PrintPrimeNumbersFrom_1_To_N(int number)
+{
     cout << "\n\n-------------------------------------------------------------------------------------------------\n\n";
-    cout << "Prime numbers form 1 to " <<  number << " are : ";
+    cout << "Prime numbers form 1 to " << number << " are : ";
     for (int i = 2; i <= number; i++)
     {
         if (CheckPrime(i) == enPrimeNumber::Prime)
         {
             cout << i << " ";
         }
-        
     }
     cout << "\n\n-------------------------------------------------------------------------------------------------\n\n";
 }
-
 
 int main()
 {
