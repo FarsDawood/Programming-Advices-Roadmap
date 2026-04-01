@@ -1,31 +1,40 @@
 ﻿# The Road to Full-Stack Software Engineering 🚀
 
 This repository documents my intense journey through the **Programming Advices Roadmap**.
-My goal is to transition from Front-end development to becoming a specialized **Full-Stack Developer** 
-by mastering Software Engineering foundations, Backend technologies, and System Design.
+My goal is to transition from Front-end development to becoming a specialized **Full-Stack Developer** by mastering Software Engineering foundations, Backend technologies, and System Design.
 
 ## 🎯 The Mission
+
 To evolve from a Front-end focused developer into a robust **Backend Engineer** (and eventually Full-Stack)
 by mastering the path from C++ logic to **.NET Core Web API** and **Database Architecture**.
 
 ## 🛣 Roadmap Phases
-- [ ] **Phase 1: Foundation (C++ & Algorithms)** - Building the "Logic Muscle".
+
+- [x] **Phase 1: Foundation (C++ & Algorithms)** - Building the "Logic Muscle". _(Phase Completed 🏆)_
 - [ ] **Phase 2: Advanced Backend Foundation** - Mastery of OOP, Databases (SQL/T-SQL), and Data Structures.
 - [ ] **Phase 3: C# & .NET Mastery** - Building enterprise-level desktop and web applications.
 - [ ] **Phase 4: Full-Stack Specialization** - Bridging the gap between Frontend and Backend with RESTful APIs.
 
-## 📂 Project Archive
-- `03 - C++ Level 1`: Deep dive into syntax and memory management.
-- `04 - Algorithms Level 1`: Advanced problem-solving solutions.
-- `05 - Algorithms Level 2`: Complex logic and optimization.
-- `06 - C++ Level 2`: Advanced language features.
-*(Folders will be updated dynamically as I progress through the 24+ courses)*
+## 📂 Project Archive (All Foundational Courses Completed ✅)
+
+- ✅ `01 - Programming Foundations`: Building the mindset and understanding how computers work.
+- ✅ `02 - Introduction to Programming`: First steps into the world of logic and code.
+- ✅ `03 - C++ Level 1`: Deep dive into syntax, control flow, and functions.
+- ✅ `04 - Algorithms Level 1`: Foundations of problem-solving and algorithmic thinking.
+- ✅ `05 - Algorithms Level 2`: Complex logic, optimizations, and mathematical problem solving.
+- ✅ `06 - C++ Level 2`: Advanced language features, Pointers, Dynamic Memory Allocation, Vectors, Exception Handling, and File CRUD Operations.
+- ⏳ `07 - Algorithms & Problem Solving Level 3`: _(Up Next!)_
+
+_(Folders will be updated dynamically as I progress through the 24+ courses)_
 
 ## 🛠 Tech Stack & Tools
+
 - **Core Languages:** C++, C#
-- **Backend:** .NET Core, SQL Server (T-SQL)
-- **Problem Solving:** Competitive Programming Mindset (ICPC)
+- **Frontend Experience:** HTML, CSS, JavaScript, React, Next.js, Tailwind CSS
+- **Backend (Target):** .NET Core, SQL Server (T-SQL)
+- **Problem Solving:** Competitive Programming Mindset (ICPC background)
 - **IDE:** Visual Studio / VS Code
 
 ---
+
 > "Building high-performance systems requires a foundation stronger than just UI/UX. I am here to build that foundation."
