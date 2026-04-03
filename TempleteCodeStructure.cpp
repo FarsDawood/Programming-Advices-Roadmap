@@ -1,22 +1,24 @@
 #include <iostream>
 #include <string>
-#include <cstdlib> 
-#include <ctime>  
+#include <cstdlib>
+#include <ctime>
 using namespace std;
-
 
 int ReadPositiveNumber(string message)
 {
-    int number;
-    do
-    {
-        cout << message;
-        cin >> number;
-    } while (number <= 0);
-    
-    return number;
-}
 
+    int number;
+    cout << message;
+    cin >> number;
+
+    while (cin.fail())
+    {
+        cin.clear();             // مسح الخطأ
+        cin.ignore(10000, '\n'); // تفريغ الذاكرة
+        cout << "Invalid Input! Please enter a valid number: ";
+        cin >> number;
+    }
+}
 string ReadString(string message)
 {
     string word;
@@ -28,16 +30,18 @@ string ReadString(string message)
 int RandomNumber(int From, int To)
 {
     int randNum = rand() % (To - From + 1) + From;
-    return randNum; 
+    return randNum;
 }
-
 
 int main()
 {
     srand((unsigned)time(NULL));
     cout << "\n\n-------------------------------------------------------------------------------------------------\n\n";
     cout << "Problem #05 : \n";
-    cout <<"\tex  : \n\n";
-    ReadPositiveNumber("Enter Positive Number : ");
+    cout << "\tex  : \n\n";
+    cout << "\n\n-------------------------------------------------\n\n";
+
+    cout << "\n\n-------------------------------------------------\n\n";
+    cout << "\n\n-------------------------------------------------------------------------------------------------\n\n";
     return 0;
 }
