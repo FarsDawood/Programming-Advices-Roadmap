@@ -4,7 +4,6 @@
 #include <ctime>
 #include <iomanip>
 using namespace std;
-
 int ReadPositiveNumber(string message)
 {
 
@@ -14,13 +13,13 @@ int ReadPositiveNumber(string message)
 
     while (cin.fail())
     {
-        cin.clear();             // مسح الخطأ
-        cin.ignore(10000, '\n'); // تفريغ الذاكرة
+        cin.clear();
+        cin.ignore(10000, '\n');
         cout << "Invalid Input! Please enter a valid number: ";
         cin >> number;
     }
+    return number;
 }
-
 string ReadString(string message)
 {
     string word;

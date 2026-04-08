@@ -310,7 +310,7 @@ int main()
     // Execution
     FillMatrixWithRandomNumbers(matrix, 3, 3);
     PrintMatrix(matrix, 3, 3);
-    
+
     SumMatrixRowsInArray(matrix, rowsSum, 3, 3);
     PrintRowsSumArray(rowsSum, 3);
 
@@ -423,6 +423,7 @@ int main()
 }
 
 ```
+
 </div>
 
 ### 🛠️ ملاحظات هندسية (Engineering Notes)
@@ -526,7 +527,7 @@ int main()
     // Execution
     FillMatrixWithRandomNumbers(matrix, 3, 3);
     PrintMatrix(matrix, 3, 3);
-    
+
     SumMatrixColsInArray(matrix, colsSum, 3, 3);
     PrintColsSumArray(colsSum, 3);
 
@@ -682,12 +683,12 @@ int main()
 
     // Execution
     FillMatrixWithOrderedNumbers(matrix, 3, 3);
-    
+
     cout << "The Following is the Original Matrix:\n\n";
     PrintMatrix(matrix, 3, 3);
 
     TransposeMatrix(matrix, transposedMatrix, 3, 3);
-    
+
     cout << "\nThe Following is the Transposed Matrix:\n\n";
     PrintMatrix(transposedMatrix, 3, 3);
 
@@ -697,6 +698,7 @@ int main()
 }
 
 ```
+
 </div>
 
 ### 🛠️ ملاحظات هندسية (Engineering Notes)
@@ -798,6 +800,7 @@ int main()
 }
 
 ```
+
 </div>
 
 ### 🛠️ ملاحظات هندسية (Engineering Notes)
@@ -894,10 +897,10 @@ int main()
 
     // Execution
     FillMatrixWithRandomNumbers(matrix, 3, 3);
-    
+
     cout << "The Following is a 3x3 Matrix:\n\n";
     PrintMatrix(matrix, 3, 3);
-    
+
     cout << "\n";
     PrintMiddleRow(matrix, 3, 3);
     PrintMiddleCol(matrix, 3, 3);
@@ -992,7 +995,7 @@ int main()
 
     // Execution
     FillMatrixWithRandomNumbers(matrix, 3, 3);
-    
+
     cout << "The Following is a 3x3 Matrix:\n\n";
     PrintMatrix(matrix, 3, 3);
 
@@ -1005,12 +1008,539 @@ int main()
 }
 
 ```
+
 </div>
 
 ### 🛠️ ملاحظات هندسية (Engineering Notes)
 
 • Time Complexity: حساب مجموع كامل المصفوفة يتطلب المرور على كل العناصر دفعة واحدة، مما يجعل الأداء $O(R \times C)$ وهو الأداء الطبيعي والأمثل لهذه العملية.
 
+## 🧩 Problem #11: Check Matrices Equality
+
+### 📝 وصف المشكلة (Problem Description)
+
+المطلوب كتابة برنامج يقوم بمقارنة مصفوفتين للتأكد مما إذا كانتا متساويتين (Equal) أم لا. في هذا السياق (حسب حل الدكتور)، المساواة تعني أن المجموع الكلي لعناصر المصفوفة الأولى يساوي المجموع الكلي لعناصر المصفوفة الثانية.
+
+### 💡 الفكرة البرمجية (Logic Breakdown)
+
+• حساب مجموع المصفوفة الأولى باستخدام دالة SumOfMatrix التي قمنا ببنائها في المسألة السابقة.
+
+• حساب مجموع المصفوفة الثانية باستخدام نفس الدالة.
+
+• مقارنة المجموعين، وإرجاع قيمة منطقية (true أو false).
+
+### 💻 الكود المعتمد (Solution)
+
+<div dir="ltr">
+
+```cpp
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <iomanip>
+using namespace std;
+
+int ReadPositiveNumber(string message)
+{
+    int number;
+    cout << message;
+    cin >> number;
+
+    while (cin.fail())
+    {
+        cin.clear();
+        cin.ignore(10000, '\n');
+        cout << "Invalid Input! Please enter a valid number: ";
+        cin >> number;
+    }
+    return number;
+}
+
+int RandomNumber(int From, int To)
+{
+    int randNum = rand() % (To - From + 1) + From;
+    return randNum;
+}
+
+void FillMatrixWithRandomNumbers(int matrix[3][3], short rows, short cols)
+{
+    for (short i = 0; i < rows; i++)
+    {
+        for (short j = 0; j < cols; j++)
+        {
+            matrix[i][j] = RandomNumber(1, 100);
+        }
+    }
+}
+
+void PrintMatrix(int matrix[3][3], short rows, short cols)
+{
+    for (short i = 0; i < rows; i++)
+    {
+        for (short j = 0; j < cols; j++)
+        {
+            cout << "\t" << setw(3) << matrix[i][j];
+        }
+        cout << endl;
+    }
+}
+
+int SumOfMatrix(int matrix[3][3], short rows, short cols)
+{
+    int sum = 0;
+    for (short i = 0; i < rows; i++)
+    {
+        for (short j = 0; j < cols; j++)
+        {
+            sum += matrix[i][j];
+        }
+    }
+    return sum;
+}
+
+// Function to check if matrices are equal (by comparing their sums)
+bool AreEqualMatrices(int matrix1[3][3], int matrix2[3][3], short rows, short cols)
+{
+    return SumOfMatrix(matrix1, rows, cols) == SumOfMatrix(matrix2, rows, cols);
+}
+
+int main()
+{
+    srand((unsigned)time(NULL));
+
+    cout << "\n-------------------------------------------------\n";
+    cout << "Problem #11 : Check Matrices Equality (By Sum)";
+    cout << "\n-------------------------------------------------\n\n";
+
+    int matrix1[3][3], matrix2[3][3];
+
+    FillMatrixWithRandomNumbers(matrix1, 3, 3);
+    FillMatrixWithRandomNumbers(matrix2, 3, 3);
+
+    cout << "Matrix 1: \n\n";
+    PrintMatrix(matrix1, 3, 3);
+
+    cout << "\nMatrix 2: \n\n";
+    PrintMatrix(matrix2, 3, 3);
+
+    if (AreEqualMatrices(matrix1, matrix2, 3, 3))
+    {
+        cout << "\nYES: Both matrices are equal.\n";
+    }
+    else
+    {
+        cout << "\nNo: Matrices are NOT equal.\n";
+    }
+
+    cout << "\n-------------------------------------------------\n\n";
+
+    return 0;
+}
+```
+
 </div>
 
+### 🛠️ ملاحظات هندسية (Engineering Notes)
 
+• إعادة الاستخدام (Code Reusability): استخدام دالة حساب المجموع الجاهزة يختصر الكود ويجعله مقروءاً جداً، فبدلاً من كتابة اللوجيك مرة أخرى، استطعنا مقارنة المصفوفتين في سطر كود واحد فقط.
+
+## 🧩 Problem #12: Check Typical Matrices
+
+### 📝 وصف المشكلة (Problem Description)
+
+المطلوب كتابة برنامج لمقارنة مصفوفتين للتأكد مما إذا كانتا متطابقتين تماماً (Typical)، أي أن كل عنصر في المصفوفة الأولى يساوي العنصر المقابل له في المصفوفة الثانية بالملي.
+
+### 💡 الفكرة البرمجية (Logic Breakdown)
+
+• نمر بحلقات تكرار متداخلة على كلا المصفوفتين في نفس الوقت.
+
+• نقارن كل عنصر [i][j] من المصفوفة الأولى مع نظيره [i][j] من الثانية.
+
+• بمجرد العثور على اختلاف واحد فقط، نخرج من الدالة فوراً بإرجاع false، مما يوفر وقت المعالجة.
+
+• إذا انتهت الحلقات دون العثور على أي اختلاف، نرجع true في النهاية.
+
+### 💻 الكود المعتمد (Solution)
+
+<div dir="ltr">
+
+```cpp
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <iomanip>
+using namespace std;
+
+int RandomNumber(int From, int To)
+{
+    int randNum = rand() % (To - From + 1) + From;
+    return randNum;
+}
+
+void FillMatrixWithRandomNumbers(int matrix[3][3], short rows, short cols)
+{
+    for (short i = 0; i < rows; i++)
+    {
+        for (short j = 0; j < cols; j++)
+        {
+            matrix[i][j] = RandomNumber(1, 100);
+        }
+    }
+}
+
+void PrintMatrix(int matrix[3][3], short rows, short cols)
+{
+    for (short i = 0; i < rows; i++)
+    {
+        for (short j = 0; j < cols; j++)
+        {
+            cout << "\t" << setw(3) << matrix[i][j];
+        }
+        cout << endl;
+    }
+}
+
+// Function to check if matrices are exactly the same element by element
+bool AreTypicalMatrices(int matrix1[3][3], int matrix2[3][3], short rows, short cols)
+{
+    for (short i = 0; i < rows; i++)
+    {
+        for (short j = 0; j < cols; j++)
+        {
+            if (matrix1[i][j] != matrix2[i][j])
+            {
+                return false; // Exit immediately if any mismatch is found
+            }
+        }
+    }
+    return true; // If loops finish without mismatch, they are typical
+}
+
+int main()
+{
+    srand((unsigned)time(NULL));
+
+    cout << "\n-------------------------------------------------\n";
+    cout << "Problem #12 : Check Typical Matrices";
+    cout << "\n-------------------------------------------------\n\n";
+
+    int matrix1[3][3], matrix2[3][3];
+
+    FillMatrixWithRandomNumbers(matrix1, 3, 3);
+    FillMatrixWithRandomNumbers(matrix2, 3, 3);
+
+    cout << "Matrix 1: \n\n";
+    PrintMatrix(matrix1, 3, 3);
+
+    cout << "\nMatrix 2: \n\n";
+    PrintMatrix(matrix2, 3, 3);
+
+    if (AreTypicalMatrices(matrix1, matrix2, 3, 3))
+    {
+        cout << "\nYES: Both matrices are typical.\n";
+    }
+    else
+    {
+        cout << "\nNo: Matrices are NOT typical.\n";
+    }
+
+    cout << "\n-------------------------------------------------\n\n";
+
+    return 0;
+}
+```
+
+</div>
+
+### 🛠️ ملاحظات هندسية (Engineering Notes)
+
+• الأداء (Early Return): فكرة الخروج المبكر (return false) بمجرد إيجاد أول اختلاف تعتبر من أقوى الممارسات الهندسية، لأنها تمنع البرنامج من إكمال حلقات التكرار وفحص باقي العناصر بلا فائدة إذا كان الشرط قد سقط بالفعل.
+
+## 🧩 Problem #13: Check Identity Matrix
+
+### 📝 وصف المشكلة (Problem Description)
+
+المطلوب كتابة برنامج للتحقق مما إذا كانت المصفوفة هي مصفوفة الوحدة (Identity Matrix). مصفوفة الوحدة هي مصفوفة مربعة جميع عناصر القطر الرئيسي فيها تساوي 1، وباقي العناصر تساوي 0.
+
+### 💡 الفكرة البرمجية (Logic Breakdown)
+
+• نمر على عناصر المصفوفة ونختبر شرطين أساسيين لتصيد الخطأ مبكراً.
+
+• عناصر القطر الرئيسي (حيث الفهرس i يساوي الفهرس j) يجب أن تكون 1. إذا وجدنا أي عنصر فيها لا يساوي 1، نرجع false.
+
+• باقي العناصر في المصفوفة (حيث i لا يساوي j) يجب أن تكون 0. إذا وجدنا أي عنصر فيها لا يساوي 0، نرجع false.
+
+### 💻 الكود المعتمد (Solution)
+
+<div dir="ltr">
+
+```cpp
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <iomanip>
+using namespace std;
+
+void PrintMatrix(int matrix[3][3], short rows, short cols)
+{
+    for (short i = 0; i < rows; i++)
+    {
+        for (short j = 0; j < cols; j++)
+        {
+            cout << "\t" << setw(3) << matrix[i][j];
+        }
+        cout << endl;
+    }
+}
+
+// Function to check if a matrix is an Identity Matrix
+bool IsIdentityMatrix(int matrix[3][3], short rows, short cols)
+{
+    for (short i = 0; i < rows; i++)
+    {
+        for (short j = 0; j < cols; j++)
+        {
+            // Check diagonal elements (must be 1)
+            if (i == j && matrix[i][j] != 1)
+            {
+                return false;
+            }
+            // Check rest of elements (must be 0)
+            else if (i != j && matrix[i][j] != 0)
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+int main()
+{
+    cout << "\n-------------------------------------------------\n";
+    cout << "Problem #13 : Check Identity Matrix";
+    cout << "\n-------------------------------------------------\n\n";
+
+    // Defining a clear identity matrix for testing
+    int matrix1[3][3] = { {1, 0, 0}, {0, 1, 0}, {0, 0, 1} };
+
+    cout << "Matrix 1: \n\n";
+    PrintMatrix(matrix1, 3, 3);
+
+    if (IsIdentityMatrix(matrix1, 3, 3))
+    {
+        cout << "\nYES: Matrix is an Identity Matrix.\n";
+    }
+    else
+    {
+        cout << "\nNo: Matrix is NOT an Identity Matrix.\n";
+    }
+
+    cout << "\n-------------------------------------------------\n\n";
+
+    return 0;
+}
+```
+
+</div>
+
+### 🛠️ ملاحظات هندسية (Engineering Notes)
+
+• التفكير المنطقي: بدلاً من التحقق من أن كل شيء صحيح (مما يتطلب إكمال كل اللفات لتأكيده)، نحن نبحث عن "الخطأ". بمجرد إيجاد شرط واحد مكسور في المصفوفة، نوقف العمل ونرجع false فوراً.
+
+## 🧩 Problem #14: Check Scalar Matrix
+
+### 📝 وصف المشكلة (Problem Description)
+
+المطلوب كتابة برنامج للتحقق مما إذا كانت المصفوفة هي مصفوفة قياسية (Scalar Matrix). وهي مصفوفة قطرية جميع عناصر قطرها الرئيسي متساوية (لها نفس الرقم)، وباقي العناصر تساوي 0.
+
+### 💡 الفكرة البرمجية (Logic Breakdown)
+
+• نقرأ أول عنصر في القطر الرئيسي [0][0] ونخزنه كقيمة مرجعية.
+
+• نمر على المصفوفة، وإذا كنا في القطر الرئيسي (i يساوي j)، نتأكد أن العنصر يساوي القيمة المرجعية المخزنة، وإلا نرجع false.
+
+• إذا كنا خارج القطر الرئيسي (i لا يساوي j)، نتأكد أن العنصر يساوي 0، وإلا نرجع false.
+
+### 💻 الكود المعتمد (Solution)
+
+<div dir="ltr">
+
+```cpp
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+void PrintMatrix(int matrix[3][3], short rows, short cols)
+{
+    for (short i = 0; i < rows; i++)
+    {
+        for (short j = 0; j < cols; j++)
+        {
+            cout << "\t" << setw(3) << matrix[i][j];
+        }
+        cout << endl;
+    }
+}
+
+// Function to check if a matrix is a Scalar Matrix
+bool IsScalarMatrix(int matrix[3][3], short rows, short cols)
+{
+    // Store the first diagonal element as a reference
+    int firstDiagElement = matrix[0][0];
+
+    for (short i = 0; i < rows; i++)
+    {
+        for (short j = 0; j < cols; j++)
+        {
+            // Check diagonal elements (must match the reference element)
+            if (i == j && matrix[i][j] != firstDiagElement)
+            {
+                return false;
+            }
+            // Check rest of elements (must be 0)
+            else if (i != j && matrix[i][j] != 0)
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+int main()
+{
+    cout << "\n-------------------------------------------------\n";
+    cout << "Problem #14 : Check Scalar Matrix";
+    cout << "\n-------------------------------------------------\n\n";
+
+    // Defining a clear scalar matrix for testing
+    int matrix1[3][3] = { {9, 0, 0}, {0, 9, 0}, {0, 0, 9} };
+
+    cout << "Matrix 1: \n\n";
+    PrintMatrix(matrix1, 3, 3);
+
+    if (IsScalarMatrix(matrix1, 3, 3))
+    {
+        cout << "\nYES: Matrix is a Scalar Matrix.\n";
+    }
+    else
+    {
+        cout << "\nNo: Matrix is NOT a Scalar Matrix.\n";
+    }
+
+    cout << "\n-------------------------------------------------\n\n";
+
+    return 0;
+}
+```
+
+</div>
+
+### 🛠️ ملاحظات هندسية (Engineering Notes)
+
+• تخزين القيمة المرجعية: تخزين أول عنصر في المتغير firstDiagElement فكرة ذكية جداً لتجنب مقارنة العنصر الحالي بالعنصر السابق، مما يسهل اللوجيك بشكل كبير ويمنع تداخل الشروط.
+
+## 🧩 Problem #15: Count Number In Matrix
+
+### 📝 وصف المشكلة (Problem Description)
+
+المطلوب كتابة برنامج يبحث عن رقم معين (يدخله المستخدم) داخل مصفوفة 3x3، ويقوم بعد مرات تكرار هذا الرقم داخل المصفوفة، ثم طباعة النتيجة النهائية.
+
+### 💡 الفكرة البرمجية (Logic Breakdown)
+
+• تعريف متغير كعداد (Counter) بقيمة ابتدائية 0.
+
+• نمر بحلقات تكرار على كامل المصفوفة.
+
+• في كل لفة، نقارن العنصر الحالي بالرقم المطلوب. إذا تطابقا، نزيد العداد بمقدار 1.
+
+• نرجع قيمة العداد النهائية بعد الانتهاء من فحص كل العناصر.
+
+### 💻 الكود المعتمد (Solution)
+
+<div dir="ltr">
+
+```cpp
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <iomanip>
+using namespace std;
+
+// Bug Fixed: Added 'return number' to properly return user input
+int ReadPositiveNumber(string message)
+{
+    int number;
+    cout << message;
+    cin >> number;
+
+    while (cin.fail())
+    {
+        cin.clear();
+        cin.ignore(10000, '\n');
+        cout << "Invalid Input! Please enter a valid number: ";
+        cin >> number;
+    }
+    return number;
+}
+
+void PrintMatrix(int matrix[3][3], short rows, short cols)
+{
+    for (short i = 0; i < rows; i++)
+    {
+        for (short j = 0; j < cols; j++)
+        {
+            cout << "\t" << setw(3) << matrix[i][j];
+        }
+        cout << endl;
+    }
+}
+
+// Function to count how many times a number appears in the matrix
+short CountNumberInMatrix(int matrix[3][3], int numberToCount, short rows, short cols)
+{
+    short count = 0;
+    for (short i = 0; i < rows; i++)
+    {
+        for (short j = 0; j < cols; j++)
+        {
+            if (matrix[i][j] == numberToCount)
+            {
+                count++;
+            }
+        }
+    }
+    return count;
+}
+
+int main()
+{
+    cout << "\n-------------------------------------------------\n";
+    cout << "Problem #15 : Count Number In Matrix";
+    cout << "\n-------------------------------------------------\n\n";
+
+    // Hardcoding a matrix for demonstration
+    int matrix1[3][3] = { {9, 1, 12}, {0, 9, 1}, {0, 9, 9} };
+
+    cout << "Matrix 1: \n\n";
+    PrintMatrix(matrix1, 3, 3);
+
+    int number = ReadPositiveNumber("\nEnter the number to count in matrix: ");
+    short count = CountNumberInMatrix(matrix1, number, 3, 3);
+
+    cout << "\nThe Number " << number << " is found " << count << " times in the matrix.\n";
+
+    cout << "\n-------------------------------------------------\n\n";
+
+    return 0;
+}
+```
+
+</div>
+
+### 🛠️ ملاحظات هندسية (Engineering Notes)
+
+• إصلاح الأخطاء (Bug Fix): تم تعديل دالة ReadPositiveNumber وإضافة return number في نهايتها، وهو أمر جوهري وأساسي لكي ترجع الدالة القيمة المطلوبة للبرنامج الرئيسي وتمنع أي سلوك غير متوقع (Undefined Behavior) كان يحدث بسبب نسيان إرجاع القيمة.
+
+</div>

@@ -14,8 +14,8 @@ int ReadPositiveNumber(string message)
 
     while (cin.fail())
     {
-        cin.clear();
-        cin.ignore(10000, '\n');
+        cin.clear();             
+        cin.ignore(10000, '\n'); 
         cout << "Invalid Input! Please enter a valid number: ";
         cin >> number;
     }
@@ -60,43 +60,38 @@ void PrintMatrix(int matrix[3][3], int rows, int cols)
     }
 }
 
-void PrintMiddleRow(int matrix[3][3], int rows, int cols)
+int CountNumberInMatrix(int matrix1[3][3], int number, int rows, int cols)
 {
-    short middleRowIndex = rows / 2;
-    cout << "The Middle Row is    : ";
-    for (int j = 0; j < cols; j++)
-    {
-        printf("%02d\t", matrix[middleRowIndex][j]);
-    }
-}
-
-void PrintMiddleCol(int matrix[3][3], int rows, int cols)
-{
-    short middleColIndex = cols / 2;
-    cout << "The Middle Column is : ";
+    int count = 0;
     for (int i = 0; i < rows; i++)
     {
-        printf("%02d\t", matrix[i][middleColIndex]);
+        for (int j = 0; j < cols; j++)
+        {
+            if (matrix1[i][j] == number)
+            {
+                count++;
+            }
+        }
     }
+    return count;
 }
 
 int main()
 {
     srand((unsigned)time(NULL));
     cout << "\n\n--------------------------------------------------------------------------------------------------\n\n";
-    cout << "Problem #09 : Write a program to fill a 3x3 matrix with random numbers, print it , then print the middle row and middle col.\n";
-    cout << "\tex  : \n\t\t11  54  75\n\t\t78  98  25\n\t\t14  41  56\n\n";
-    cout << "\n\t\tThe Middle Row is    : 78  98  25\n";
-    cout << "\n\t\tThe Middle Column is : 54  98  56\n\n";
+    cout << "Problem #15 : Write a program to count given number in matrix.\n";
+    cout << "\tex  : \n\t\t2   3   2\n\t\t5   2   1\n\t\t11   2   33\n\n";
+    cout << "\n\t\tInput : Enter number to count : 2\n\n";
+    cout << "\n\t\tOutput : The Number 2 is found 4 times in the matrix.\n\n";
     cout << "\n\n-------------------------------------------------\n\n";
     int martrix[3][3];
     FillMatrixWithRandomNumbers(martrix, 3, 3);
-    cout << "The Following is a 3x3 Matrix filled with Random Numbers : \n\n";
+    cout << "Matrix 1: \n\n";
     PrintMatrix(martrix, 3, 3);
-    PrintMiddleRow(martrix, 3, 3);
-    cout << "\n\n";
-    PrintMiddleCol(martrix, 3, 3);
-    cout << "\n";
+    int number = ReadPositiveNumber("\nEnter number to count : ");
+    int count = CountNumberInMatrix(martrix, number, 3, 3);
+    cout << "\nThe Number " << number << " is found " << count << " times in the matrix.\n";
     cout << "\n-------------------------------------------------\n\n";
     cout << "\n\n--------------------------------------------------------------------------------------------------\n\n";
 
