@@ -1,4 +1,4 @@
-<div dir="rtl">
+﻿<div dir="rtl">
 
 # كورس 07: الخوارزميات وحل المشاكل - المستوى الثالث
 
@@ -2004,11 +2004,838 @@ cout << "\n-------------------------------------------------\n\n";
 }
 
 ```
+
 </div>
 
 ### 🛠️ ملاحظات هندسية (Engineering Notes)
 
 • تحسين الأداء (Performance Optimization): لو جعلنا الحلقة الداخلية تستمر حتى النهاية Cols، لكنا نفحص كل زوج مرتين بلا أي داعٍ! إيقاف الفحص عند Cols / 2 يختصر وقت تنفيذ هذه الدالة إلى النصف، وهو ما يصنع فارقاً حاسماً في المصفوفات الضخمة (مثل معالجة الصور التي تحتوي على ملايين البيكسلات).
 
-</div>
+## 🧩 Problem #21: Fibonacci Series Using Loop
+
+### 📝 وصف المشكلة (Problem Description)
+
+المطلوب كتابة برنامج لطباعة سلسلة فيبوناتشي (Fibonacci Series) لعدد معين من الخانات (مثلاً 10). في هذه السلسلة، كل رقم هو مجموع الرقمين اللذين يسبقانه (1, 1, 2, 3, 5, 8...).
+
+### 💡 الفكرة البرمجية (Logic Breakdown)
+
+• المتغيرات الابتدائية: السلسلة تبدأ دائماً بالرقمين 1 و 1 (أو 0 و 1). نُعطي متغيرين قيماً ابتدائية Prev1 = 1 و Prev2 = 0.
+
+• حلقة التكرار: نمر بحلقة تكرار تبدأ من 2 وحتى الرقم المطلوب.
+
+• التحديث المستمر: في كل لفة، نجمع الرقمين السابقين للحصول على الرقم الجديد، ثم نقوم بترحيل القيم (نجعل الأول يأخذ قيمة الثاني، والثاني يأخذ القيمة الجديدة) للتحضير للفة القادمة.
+
+### 💻 الكود المعتمد (Solution)
+
+```cpp
+#include <iostream>
+using namespace std;
+
+// Function to print Fibonacci series using an iterative loop
+void PrintFibonacciUsingLoop(short number)
+{
+    int febNumber = 0;
+    int prev2 = 0, prev1 = 1;
+
+    cout << "1 "; // Print the first number manually
+
+    for (short i = 2; i <= number; ++i)
+    {
+        febNumber = prev1 + prev2;
+        cout << febNumber << " ";
+
+        // Shift the variables for the next iteration
+        prev2 = prev1;
+        prev1 = febNumber;
+    }
+    cout << endl;
+}
+
+int main()
+{
+    cout << "\n-------------------------------------------------\n";
+    cout << "Problem #21 : Fibonacci Series Using Loop";
+    cout << "\n-------------------------------------------------\n\n";
+
+    cout << "Fibonacci Series of 10: \n";
+    PrintFibonacciUsingLoop(10);
+
+    cout << "\n-------------------------------------------------\n\n";
+    return 0;
+}
 ```
+
+### 🛠️ ملاحظات هندسية (Engineering Notes)
+
+• الأداء (Iterative Performance): استخدام حلقة التكرار (Loop) هو الأسلوب الأفضل والأسرع لحل سلسلة فيبوناتشي برمجياً، حيث أن تعقيد الوقت (Time Complexity) هو $O(N)$ ولا يستهلك مساحة إضافية من الذاكرة (Call Stack) كما تفعل طريقة الاستدعاء الذاتي (Recursion).
+
+## 🧩 Problem #22: Fibonacci Series Using Recursion
+
+### 📝 وصف المشكلة (Problem Description)
+
+المطلوب هو نفس المسألة السابقة (طباعة سلسلة فيبوناتشي لـ 10 أرقام)، ولكن هذه المرة باستخدام الاستدعاء الذاتي (Recursion) بدلاً من حلقات التكرار التقليدية.
+
+### 💡 الفكرة البرمجية (Logic Breakdown)
+
+• شرط التوقف (Base Case): تتوقف الدالة عن استدعاء نفسها عندما يصل العداد Number إلى صفر.
+
+• تحديث المتغيرات: الدالة تستقبل الرقمين السابقين كبارامترات (Prev1 و Prev2). في كل استدعاء جديد، نُمرر لها القيم المُحدثة وننقص العداد بمقدار 1.
+
+### 💻 الكود المعتمد (Solution)
+
+```cpp
+#include <iostream>
+using namespace std;
+
+// Function to print Fibonacci series using Recursion
+void PrintFibonacciUsingRecursion(short number, int prev1, int prev2)
+{
+    int febNumber = 0;
+
+    // Base Case
+    if (number > 0)
+    {
+        febNumber = prev2 + prev1;
+        cout << febNumber << " ";
+
+        // Shift variables and pass to the next recursive call
+        prev2 = prev1;
+        prev1 = febNumber;
+
+        PrintFibonacciUsingRecursion(number - 1, prev1, prev2);
+    }
+}
+
+int main()
+{
+    cout << "\n-------------------------------------------------\n";
+    cout << "Problem #22 : Fibonacci Series Using Recursion";
+    cout << "\n-------------------------------------------------\n\n";
+
+    cout << "Fibonacci Series of 10: \n1 ";
+
+    // Pass the initial values (0 and 1) to start the series
+    PrintFibonacciUsingRecursion(9, 0, 1);
+    cout << endl;
+
+    cout << "\n-------------------------------------------------\n\n";
+    return 0;
+}
+```
+
+### 🛠️ ملاحظات هندسية (Engineering Notes)
+
+• خطر الاستدعاء الذاتي (Stack Overflow): رغم أن الـ Recursion يكتب كوداً أنيقاً ومختصراً، إلا أنه خطير جداً مع الأرقام الكبيرة. استدعاء الدالة لنفسها 1000 مرة مثلاً سيملأ الـ (Call Stack) بالكامل ويؤدي لانهيار البرنامج. لذلك يُفضل استخدام الـ Loop في بيئات الإنتاج الحقيقية.
+
+## 🧩 Problem #23: Print First Letter of Each Word
+
+### 📝 وصف المشكلة (Problem Description)
+
+المطلوب كتابة برنامج يقرأ نصاً (String) من المستخدم، ثم يطبع الحرف الأول من كل كلمة موجودة في هذا النص.
+
+### 💡 الفكرة البرمجية (Logic Breakdown)
+
+• استخدام راية (Flag): نُعرف متغيراً من نوع bool (مثلاً isFirstLetter) ونعطيه قيمة مبدئية true لأن أول حرف في النص هو حتماً بداية كلمة (إذا لم يكن مسافة).
+
+• المرور على النص: نتفحص كل حرف. إذا لم يكن الحرف مسافة فارغة وكان الـ Flag يساوي true، إذن هذا الحرف هو بداية كلمة فنقوم بطباعته.
+
+• تحديث الراية: إذا صادفنا مسافة فارغة ، فهذا يعني أن الحرف القادم سيكون بداية كلمة جديدة، فنقوم بقلب الراية إلى true.
+
+### 💻 الكود المعتمد (Solution)
+
+```cpp
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+string ReadString()
+{
+    string s;
+    cout << "Please enter your string:\n";
+    getline(cin, s);
+    return s;
+}
+
+// Function to print the first letter of each word
+void PrintFirstLetterOfEachWord(string s)
+{
+    bool isFirstLetter = true;
+
+    cout << "\nFirst letters of this string: \n";
+
+    for (short i = 0; i < s.length(); i++)
+    {
+        // Print if it's not a space and isFirstLetter is true
+        if (s[i] != ' ' && isFirstLetter)
+        {
+            cout << s[i] << " ";
+        }
+
+        // Update the flag: if current char is space, next char is a first letter
+        isFirstLetter = (s[i] == ' ' ? true : false);
+    }
+    cout << endl;
+}
+
+int main()
+{
+    cout << "\n-------------------------------------------------\n";
+    cout << "Problem #23 : Print First Letter of Each Word";
+    cout << "\n-------------------------------------------------\n\n";
+
+    string text = ReadString();
+    PrintFirstLetterOfEachWord(text);
+
+    cout << "\n-------------------------------------------------\n\n";
+    return 0;
+}
+```
+
+### 🛠️ ملاحظات هندسية (Engineering Notes)
+
+• آلة الحالة (State Machine Concept): فكرة استخدام الـ bool لتتبع "حالة" البرنامج (هل نحن بداخل كلمة أم خارجها؟) هي تطبيق مصغر لمفهوم برمجي قوي جداً يُسمى الـ State Machine، والذي يستخدم بكثرة في تحليل النصوص (Parsing) والمترجمات (Compilers).
+
+## 🧩 Problem #24: Upper First Letter of Each Word
+
+### 📝 وصف المشكلة (Problem Description)
+
+المطلوب كتابة برنامج يقرأ نصاً (String)، ويقوم بتحويل الحرف الأول من كل كلمة إلى حرف كبير (Uppercase)، ثم يطبع النص المُعدل.
+
+### 💡 الفكرة البرمجية (Logic Breakdown)
+
+• نفس لوجيك المسألة السابقة (استخدام Flag).
+
+• بدلاً من طباعة الحرف الأول، نقوم بتعديله في مكانه داخل الـ String باستخدام دالة toupper() الموجودة في مكتبة <cctype>.
+
+• نُرجع النص المُعدل (String) كاملاً للمستخدم.
+
+### 💻 الكود المعتمد (Solution)
+
+```cpp
+#include <iostream>
+#include <string>
+#include <cctype> // For toupper
+using namespace std;
+
+string ReadString()
+{
+    string s;
+    cout << "Please enter your string:\n";
+    getline(cin, s);
+    return s;
+}
+
+// Function to uppercase the first letter of each word
+string UpperFirstLetterOfEachWord(string s)
+{
+    bool isFirstLetter = true;
+
+    for (short i = 0; i < s.length(); i++)
+    {
+        if (s[i] != ' ' && isFirstLetter)
+        {
+            // Modify the character in-place
+            s[i] = toupper(s[i]);
+        }
+
+        isFirstLetter = (s[i] == ' ' ? true : false);
+    }
+    return s;
+}
+
+int main()
+{
+    cout << "\n-------------------------------------------------\n";
+    cout << "Problem #24 : Upper First Letter of Each Word";
+    cout << "\n-------------------------------------------------\n\n";
+
+    string text = ReadString();
+
+    cout << "\nString after conversion:\n";
+    text = UpperFirstLetterOfEachWord(text);
+    cout << text << endl;
+
+    cout << "\n-------------------------------------------------\n\n";
+    return 0;
+}
+```
+
+### 🛠️ ملاحظات هندسية (Engineering Notes)
+
+• قابلية التعديل (String Mutability): في لغة C++، النصوص (Strings) قابلة للتعديل مباشرة في الذاكرة (Mutable). يمكنك الوصول لأي حرف عن طريق الفهرس الخاص به s[i] وتغييره فوراً دون الحاجة لإنشاء نص جديد، مما يحسن الأداء.
+
+## 🧩 Problem #25: Lower First Letter of Each Word
+
+### 📝 وصف المشكلة (Problem Description)
+
+المطلوب قراءة نص (String)، وتحويل الحرف الأول من كل كلمة إلى حرف صغير (Lowercase)، ثم طباعة النص المُعدل.
+
+### 💡 الفكرة البرمجية (Logic Breakdown)
+
+• الكود متطابق تماماً بنسبة 99% مع المسألة السابقة.
+
+• التغيير الوحيد هو استخدام الدالة العكسية tolower() بدلاً من toupper().
+
+### 💻 الكود المعتمد (Solution)
+
+```cpp
+#include <iostream>
+#include <string>
+#include <cctype> // For tolower
+using namespace std;
+
+string ReadString()
+{
+    string s;
+    cout << "Please enter your string:\n";
+    getline(cin, s);
+    return s;
+}
+
+// Function to lowercase the first letter of each word
+string LowerFirstLetterOfEachWord(string s)
+{
+    bool isFirstLetter = true;
+
+    for (short i = 0; i < s.length(); i++)
+    {
+        if (s[i] != ' ' && isFirstLetter)
+        {
+            // Modify the character in-place
+            s[i] = tolower(s[i]);
+        }
+
+        isFirstLetter = (s[i] == ' ' ? true : false);
+    }
+    return s;
+}
+
+int main()
+{
+    cout << "\n-------------------------------------------------\n";
+    cout << "Problem #25 : Lower First Letter of Each Word";
+    cout << "\n-------------------------------------------------\n\n";
+
+    string text = ReadString();
+
+    cout << "\nString after conversion:\n";
+    text = LowerFirstLetterOfEachWord(text);
+    cout << text << endl;
+
+    cout << "\n-------------------------------------------------\n\n";
+    return 0;
+}
+```
+
+### 🛠️ ملاحظات هندسية (Engineering Notes)
+
+• إعادة الاستخدام (Code Pattern): تشابه هذا الكود مع الكود السابق يؤكد على قوة الأنماط البرمجية (Patterns). بمجرد أن تبتكر خوارزمية لتحديد "بداية الكلمات"، يمكنك تطبيق أي عملية تريدها (تكبير، تصغير، تلوين، الخ) بتبديل دالة واحدة فقط.
+
+## 🧩 Problem #26: Upper/Lower All Letters of a String
+
+### 📝 وصف المشكلة (Problem Description)
+
+المطلوب كتابة برنامج يقرأ نصاً (String)، ثم يقوم بطباعته مرتين: المرة الأولى تكون فيها جميع الحروف كبيرة (Uppercase)، والمرة الثانية تكون فيها جميع الحروف صغيرة (Lowercase).
+
+### 💡 الفكرة البرمجية (Logic Breakdown)
+
+• المرور الشامل: نمر بحلقة التكرار (Loop) على جميع أحرف النص دون استثناء.
+
+• التحويل المباشر: نُطبق دالة toupper() أو tolower() على كل حرف.
+
+• أمان الدوال: دوال التحويل هذه ذكية بما يكفي لتتجاهل المسافات الفارغة وعلامات الترقيم والأرقام، فلا داعي لوضع شروط if للتحقق من نوع الحرف قبل تحويله.
+
+### 💻 الكود المعتمد (Solution)
+
+```CPP
+#include <iostream>
+#include <string>
+#include <cctype>
+using namespace std;
+
+string ReadString()
+{
+    string s;
+    cout << "Please enter your string:\n";
+    getline(cin, s);
+    return s;
+}
+
+// Function to upper all letters in the string
+string UpperAllString(string s)
+{
+    for (short i = 0; i < s.length(); i++)
+    {
+        s[i] = toupper(s[i]);
+    }
+    return s;
+}
+
+// Function to lower all letters in the string
+string LowerAllString(string s)
+{
+    for (short i = 0; i < s.length(); i++)
+    {
+        s[i] = tolower(s[i]);
+    }
+    return s;
+}
+
+int main()
+{
+    cout << "\n-------------------------------------------------\n";
+    cout << "Problem #26 : Upper and Lower All Letters";
+    cout << "\n-------------------------------------------------\n\n";
+
+    string text = ReadString();
+
+    cout << "\nString after Uppercase:\n";
+    text = UpperAllString(text);
+    cout << text << endl;
+
+    cout << "\nString after Lowercase:\n";
+    text = LowerAllString(text);
+    cout << text << endl;
+
+    cout << "\n-------------------------------------------------\n\n";
+    return 0;
+}
+
+```
+
+### 🛠️ ملاحظات هندسية (Engineering Notes)
+
+• بساطة الكود: لاحظ كيف أن التخلص من الشروط المعقدة جعل الخوارزمية سريعة جداً. الاعتماد على قوة الـ Standard Library (مثل <cctype>) يوفر وقت التنفيذ (Execution Time) ويقلل احتمالية حدوث أخطاء برمجية (Bugs).
+
+## 🧩 Problem #27: Invert Character Case
+
+### 📝 وصف المشكلة (Problem Description)
+
+المطلوب كتابة برنامج يقرأ حرفاً (Character) واحداً من المستخدم، ويقوم بعكس حالة هذا الحرف (Invert Case)، أي تحويله من كبير إلى صغير أو العكس، ثم يطبعه.
+
+### 💡 الفكرة البرمجية (Logic Breakdown)
+
+• نستخدم دالة isupper() لفحص حالة الحرف المُدخل.
+
+• إذا كان الحرف كبيراً (True)، نستخدم دالة tolower() لتحويله لأسفل.
+
+• إذا كان الحرف صغيراً (False)، نستخدم دالة toupper() لتحويله لأعلى.
+
+### 💻 الكود المعتمد (Solution)
+
+<div dir="ltr">
+
+```cpp
+#include <iostream>
+#include <string>
+#include <cctype>
+using namespace std;
+
+char ReadChar(string message)
+{
+    char l;
+    cout << message;
+    cin >> l;
+    return l;
+}
+
+char InvertLetterCase(char l)
+{
+    // Using Ternary Operator to toggle between upper and lower cases
+    return (isupper(l) ? tolower(l) : toupper(l));
+}
+
+int main()
+{
+    cout << "\n-------------------------------------------------\n";
+    cout << "Problem #27 : Invert Character Case";
+    cout << "\n-------------------------------------------------\n\n";
+
+    char letter = ReadChar("Please Enter a character: ");
+    cout << "\nCharacter after inverting case : " << InvertLetterCase(letter);
+
+    cout << "\n\n-------------------------------------------------\n\n";
+    return 0;
+}
+
+```
+</div>
+
+### ⚖️ مقارنة حلي بحل الدكتور (Solution Comparison)
+
+• حلك متطابق تماماً مع حل الدكتور من حيث المنطق الرياضي والأداء. كليكما استخدم "المعامل الثلاثي" (Ternary Operator) للتحقق من حالة الحرف وتغييرها في سطر واحد فقط، وهذا يعتبر من أفضل الممارسات (Best Practice) لتقليل حجم الكود وسهولة قراءته.
+
+## 🧩 Problem #28: Invert All Letters Case
+
+### 📝 وصف المشكلة (Problem Description)
+
+المطلوب كتابة برنامج يقرأ نصاً (String) كاملاً، ثم يقوم بعكس حالة جميع حروفه، بحيث يتحول الحرف الكبير إلى صغير، والصغير إلى كبير، ثم يُطبع النص الناتج.
+
+### 💡 الفكرة البرمجية (Logic Breakdown)
+
+• نقوم بالمرور على جميع أحرف الـ String باستخدام for loop.
+
+• نُمرر كل حرف لدالة InvertLetterCase التي قمنا ببنائها في المسألة السابقة.
+
+• نقوم بتعديل الحرف في مكانه داخل النص الأصلي.
+
+### 💻 الكود المعتمد (Solution)
+
+<div dir="ltr">
+
+```cpp
+#include <iostream>
+#include <string>
+#include <cctype>
+using namespace std;
+
+string ReadString(string message)
+{
+    string l;
+    cout << message;
+    getline(cin, l);
+    return l;
+}
+
+char InvertLetterCase(char l)
+{
+    return (isupper(l) ? tolower(l) : toupper(l));
+}
+
+string InvertAllStringLettersCase(string str)
+{
+    for (size_t i = 0; i < str.length(); i++)
+    {
+        // Modifying the character directly using the previous function
+        str[i] = InvertLetterCase(str[i]);
+    }
+    return str;
+}
+
+int main()
+{
+    cout << "\n-------------------------------------------------\n";
+    cout << "Problem #28 : Invert All Letters Case";
+    cout << "\n-------------------------------------------------\n\n";
+
+    string str = ReadString("Please Enter a String: ");
+    cout << "String after inverting all letters case: " << InvertAllStringLettersCase(str);
+
+    cout << "\n\n-------------------------------------------------\n\n";
+    return 0;
+}
+```
+
+</div>
+
+### ⚖️ مقارنة حلي بحل الدكتور (Solution Comparison)
+
+• تطابق تام (Perfect Match) في الفكرة البرمجية. استخدامك لدالة InvertLetterCase داخل الـ Loop يجسد مفهوم الـ Reusability (إعادة استخدام الكود)، وهو ما فعله الدكتور أبو هدهود تماماً. أداء الكود ممتاز وهو $O(N)$.
+
+## 🧩 Problem #29: Count Small/Capital Letters
+
+### 📝 وصف المشكلة (Problem Description)
+
+المطلوب كتابة برنامج يقوم بعدّ (حساب) الحروف داخل نص مُدخل، ويوفر القدرة على جلب ثلاثة أشياء: طول النص الكلي، عدد الحروف الكبيرة (Capital)، وعدد الحروف الصغيرة (Small).
+
+### 💡 الفكرة البرمجية (Logic Breakdown)
+
+• إنشاء Enum يُسمى enWhatToCount ليحتوي على الثلاث حالات المطلوبة.
+
+• إنشاء دالة موحدة تستقبل النص، وتستقبل المتغير من نوع الـ Enum كـ (Default Parameter).
+
+• الدالة تتفحص نوع الـ Enum المُرسل: إما أن تعيد طول النص كاملاً، وإما أن تمر بحلقة تكرار لعد الحروف الصغرى، وإما أن تعد الحروف الكبرى بناءً على طلب المستخدم.
+
+### 💻 الكود المعتمد (Solution)
+
+```cpp
+<div dir="ltr">
+
+#include <iostream>
+#include <string>
+#include <cctype>
+using namespace std;
+
+string ReadString(string message)
+{
+    string l;
+    cout << message;
+    getline(cin, l);
+    return l;
+}
+
+// Enum to organize options clearly
+enum enWhatToCount
+{
+    SmallLetters = 1,
+    CapitalLetters = 2,
+    AllLetters = 3
+};
+
+// Unified function with a default parameter
+short CountLetters(string str, enWhatToCount whatToCount = enWhatToCount::AllLetters)
+{
+    if (whatToCount == enWhatToCount::AllLetters)
+        return str.length();
+        
+    short count = 0;
+    
+    for (size_t i = 0; i < str.length(); i++)
+    {
+        if (whatToCount == enWhatToCount::SmallLetters)
+        {
+            if (islower(str[i]))
+                count++;
+        }
+        else if (whatToCount == enWhatToCount::CapitalLetters)
+        {
+            if (isupper(str[i]))
+                count++;
+        }
+    }
+    return count;
+}
+
+int main()
+{
+    cout << "\n-------------------------------------------------\n";
+    cout << "Problem #29 : Count Small, Capital and All Letters";
+    cout << "\n-------------------------------------------------\n\n";
+
+    string str = ReadString("Please Enter a String: ");
+    
+    cout << "\nString Length             : " << CountLetters(str, enWhatToCount::AllLetters);
+    cout << "\nNumber of Small Letters   : " << CountLetters(str, enWhatToCount::SmallLetters);
+    cout << "\nNumber of Capital Letters : " << CountLetters(str, enWhatToCount::CapitalLetters);
+
+    cout << "\n\n-------------------------------------------------\n\n";
+    return 0;
+}
+
+```
+</div>
+
+### ⚖️ مقارنة حلي بحل الدكتور (Solution Comparison)
+
+• تفوق تنظيمي ملحوظ في حلك! الدكتور أبو هدهود قام بشرح طريقتين: الأولى بدائية عن طريق كتابة دالتين منفصلتين (واحدة للحروف الكبيرة وأخرى للصغيرة)، والثانية احترافية تعتمد على دالة موحدة تستخدم الـ Enum. أنت دخلت مباشرة إلى "الاحترافية" واستخدمت الطريقة المتقدمة، مطبقاً بذلك مبدأ (DRY: Don't Repeat Yourself) لتقليل حجم الكود وتسهيل صيانته.
+
+## 🧩 Problem #30: Count Letters
+
+### 📝 وصف المشكلة (Problem Description)
+
+المطلوب كتابة برنامج يقرأ نصاً (String) ويقرأ حرفاً واحداً (Character) من المستخدم، ثم يعد كم مرة تكرر هذا الحرف بعينه داخل النص المكتوب.
+
+### 💡 الفكرة البرمجية (Logic Breakdown)
+
+• تمرير النص والحرف كبارامترات لدالة العد.
+
+• المرور على جميع أحرف النص عن طريق for loop.
+
+• اختبار ما إذا كان الحرف الحالي يساوي == الحرف المبعوث، وفي حالة التطابق نزيد العداد بمقدار 1.
+
+### 💻 الكود المعتمد (Solution)
+
+```cpp
+<div dir="ltr">
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+string ReadString(string message)
+{
+    string l;
+    cout << message;
+    getline(cin, l);
+    return l;
+}
+
+// Function to count the occurrences of a specific character
+short CountLetters(string str, char c)
+{
+    short count = 0;
+    for (size_t i = 0; i < str.length(); i++)
+    {
+        if (str[i] == c)
+            count++;
+    }
+    return count;
+}
+
+int main()
+{
+    cout << "\n-------------------------------------------------\n";
+    cout << "Problem #30 : Count Specific Letter in a String";
+    cout << "\n-------------------------------------------------\n\n";
+
+    string str = ReadString("Please Enter a String: ");
+    
+    // We expect a single character, so we take the first char of the string input
+    char c = ReadString("Enter a character to count: ")[0];
+    
+    cout << "\nNumber of '" << c << "' in the string is : " << CountLetters(str, c);
+
+    cout << "\n\n-------------------------------------------------\n\n";
+    return 0;
+}
+
+```
+</div>
+
+### ⚖️ مقارنة حلي بحل الدكتور (Solution Comparison)
+
+• التطابق التام. اللوجيك لديك ولدى الدكتور متماثل وهو يعتمد على المرور الخطي المباشر (Linear Search) بأداء $O(N)$، وهو الأداء الأمثل لهذا النوع من المهام.
+
+## 🧩 Problem #31: Count Letters (Match Case or Not)
+
+### 📝 وصف المشكلة (Problem Description)
+
+تطوير للمسألة السابقة: البرنامج يعد تكرار حرف معين داخل نص، ولكنه يعطي المستخدم خياراً إضافياً، إما المطابقة التامة لحالة الحرف (Match Case)، وإما تجاهل حالة الحرف (مثلاً عند البحث عن a يتم عد كلاً من a و A).
+
+### 💡 الفكرة البرمجية (Logic Breakdown)
+
+• إضافة معامل افتراضي للدالة (Default Parameter) من نوع bool MatchCase = true.
+
+• إذا كانت MatchCase تساوي true، نقارن الحروف مباشرة str[i] == c (تطابق دقيق).
+
+• أما إذا أرسلنا false، فإننا نستخدم دالة tolower() على الحرفين معاً قبل إجراء المقارنة لتوحيد حالتهما، وبذلك يتم استيعاب الحروف الكبيرة والصغيرة في العد.
+
+### 💻 الكود المعتمد (Solution)
+
+<div dir="ltr">
+
+```cpp
+#include <iostream>
+#include <string>
+#include <cctype>
+using namespace std;
+
+string ReadString(string message)
+{
+    string l;
+    cout << message;
+    getline(cin, l);
+    return l;
+}
+
+char InvertLetterCase(char l)
+{
+    return (isupper(l) ? tolower(l) : toupper(l));
+}
+
+// Function with Default Parameter to handle Match Case logic
+short CountLetters(string str, char c, bool MatchCase = true)
+{
+    short count = 0;
+    
+    for (size_t i = 0; i < str.length(); i++)
+    {
+        if (MatchCase) // Exact match is required
+        {
+            if (str[i] == c)
+                count++;
+        }
+        else // Case-insensitive match
+        {
+            if (tolower(str[i]) == tolower(c))
+                count++;
+        }
+    }
+    return count;
+}
+
+int main()
+{
+    cout << "\n-------------------------------------------------\n";
+    cout << "Problem #31 : Count Letters (Match Case Options)";
+    cout << "\n-------------------------------------------------\n\n";
+
+    string str = ReadString("Please Enter a String: ");
+    char c = ReadString("Enter a character to count: ")[0];
+    
+    // Counting with MatchCase = true (Default)
+    cout << "\nNumber of '" << c << "' in the string is : " 
+         << CountLetters(str, c);
+         
+    // Counting with MatchCase = false (Case-Insensitive)
+    cout << "\nNumber of '" << c << "' or '" << InvertLetterCase(c) << "' in the string is : " 
+         << CountLetters(str, c, false);
+
+    cout << "\n\n-------------------------------------------------\n\n";
+    return 0;
+}
+
+```
+</div>
+
+### ⚖️ مقارنة حلي بحل الدكتور (Solution Comparison)
+
+• اللوجيك متطابق بنسبة 100%. فكرة توحيد الحروف إلى الـ Lowercase باستخدام دالة tolower في جانبي المقارنة هي الحيلة الأذكى برمجياً في عملية التجاهل (Case Insensitive Search)، وقد طبقتها ببراعة.
+
+## 🧩 Problem #32: Is Vowel
+
+### 📝 وصف المشكلة (Problem Description)
+
+المطلوب كتابة برنامج يتحقق مما إذا كان الحرف المُدخل هو حرف عِلّة (Vowel) أم لا. حروف العلة الإنجليزية هي (a, e, i, o, u).
+
+### 💡 الفكرة البرمجية (Logic Breakdown)
+
+• لتبسيط الشرط وعدم تكراره للحروف الكبيرة والصغيرة (تجنب كتابة 10 شروط بدلاً من 5)، نقوم أولاً بتحويل الحرف المُدخل إلى Lowercase مؤقتاً في الذاكرة.
+
+• ثم نفحص الحرف المخفض مع الحروف الخمسة الثابتة باستخدام المعامل المنطقي || (OR).
+
+### 💻 الكود المعتمد (Solution)
+
+<div dir="ltr">
+
+```cpp
+#include <iostream>
+#include <string>
+#include <cctype>
+using namespace std;
+
+char ReadChar(string message)
+{
+    char l;
+    cout << message;
+    cin >> l;
+    return l;
+}
+
+// Function to check if a letter is a vowel
+bool IsVowel(char l)
+{
+    char lowerL = tolower(l); // Convert to lowercase to minimize conditions
+    return (lowerL == 'a' || lowerL == 'e' || lowerL == 'i' || lowerL == 'o' || lowerL == 'u');
+}
+
+int main()
+{
+    cout << "\n-------------------------------------------------\n";
+    cout << "Problem #32 : Check if Character is Vowel";
+    cout << "\n-------------------------------------------------\n\n";
+
+    char letter = ReadChar("Please Enter a character: ");
+    
+    if (IsVowel(letter))
+    {
+        cout << "\nYes, Character '" << letter << "' is a vowel.";
+    }
+    else
+    {
+        cout << "\nNo, Character '" << letter << "' is not a vowel.";
+    }
+
+    cout << "\n\n-------------------------------------------------\n\n";
+    return 0;
+}
+```
+
+</div>
+
+### ⚖️ مقارنة حلي بحل الدكتور (Solution Comparison)
+
+• الحلول متطابقة. تحويل الحرف لـ Lowercase أولاً قبل اختباره يُعتبر من قواعد كتابة الأكواد النظيفة (Clean Code Practices) لأنك وفرت على الكومبايلر وعلى المبرمج عبء قراءة شروط مزدوجة لا حاجة لها.
+
+</div>
