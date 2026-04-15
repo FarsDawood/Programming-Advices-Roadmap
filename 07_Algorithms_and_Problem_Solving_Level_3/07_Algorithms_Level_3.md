@@ -3475,4 +3475,539 @@ int main()
 
 • تطابق تام (Perfect Match) في فهم واستخدام الـ Overloading. لغة C++ تكتشف نوع البيانات المرسل في الـ main وبناءً عليه تقرر استدعاء الدالة المناسبة (سواء النسخة الخاصة بالـ Vector أو النسخة الخاصة بالـ Array) بسلاسة.
 
+## 🧩 Problem #41: Reverse Words in String
+
+### 📝 وصف المشكلة (Problem Description)
+
+المطلوب كتابة برنامج يقرأ جملة نصية (String)، ويقوم بعكس ترتيب الكلمات بداخلها (عكس ترتيب الكلمات وليس حروف الكلمة نفسها)، ثم طباعة الجملة المعكوسة.
+
+### 💡 الفكرة البرمجية (Logic Breakdown)
+
+• تقطيع النص: نستخدم دالة SplitString لتقسيم الجملة إلى كلمات ووضعها داخل Vector.
+
+• المرور العكسي: نُعرّف مُكرر (Iterator) يسمى it، ونجعله يبدأ من نهاية المتجه vWords.end().
+
+• في حلقة التكرار، نتراجع خطوة للخلف it-- ثم نضيف الكلمة التي يؤشر عليها إلى سلسلة نصية جديدة sReversedString.
+
+• إزالة المسافة: بعد الانتهاء، ستكون هناك مسافة زائدة في آخر الجملة، نزيلها ونرجع الناتج.
+
+### 💻 الكود المعتمد (Solution)
+
+<div dir="ltr">
+
+```cpp
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+string ReadString(string message)
+{
+    string word;
+    cout << message;
+    getline(cin, word);
+    return word;
+}
+
+vector<string> SplitString(string S1, string delim = " ")
+{
+    vector<string> vWords;
+    short pos = 0;
+    string sWord;
+
+    while ((pos = S1.find(delim)) != std::string::npos)
+    {
+        sWord = S1.substr(0, pos);
+        if (sWord != "")
+        {
+            vWords.push_back(sWord);
+        }
+        S1.erase(0, pos + delim.length());
+    }
+    if (S1 != "")
+    {
+        vWords.push_back(S1);
+    }
+    return vWords;
+}
+
+// Function to reverse the order of words in a string
+string ReverseWordsInString(string str)
+{
+    vector<string> vWords = SplitString(str);
+    string sReversedString = "";
+    
+    // Iterator starting pointing to the element PAST the last one
+    vector<string>::iterator it = vWords.end();
+    
+    // Loop backwards until we hit the beginning
+    while (it != vWords.begin())
+    {
+        it--; // Move one step back to a valid element
+        sReversedString += *it + " ";
+    }
+    
+    // Remove the trailing space
+    sReversedString = sReversedString.substr(0, sReversedString.length() - 1);
+    return sReversedString;
+}
+
+int main()
+{
+    cout << "\n-------------------------------------------------\n";
+    cout << "Problem #41 : Reverse Words in String";
+    cout << "\n-------------------------------------------------\n\n";
+
+    string str = ReadString("Please enter your string: ");
+    cout << "\nYour string after reverse: " << ReverseWordsInString(str);
+
+    cout << "\n\n-------------------------------------------------\n\n";
+    return 0;
+}
+
+```
+</div>
+
+### ⚖️ مقارنة حلي بحل الدكتور (Solution Comparison)
+
+• الحلول متطابقة تماماً! استخدامك لمكرر المتجه iterator لكي يبدأ من end() ويتحرك للخلف it-- هو ممارسة احترافية. الدكتور اتبع نفس الأسلوب بالملي. هذا يعكس استيعابك العميق للتعامل مع الذاكرة وعناوين العناصر داخل المتجهات.
+
+## 🧩 Problem #42: Replace Words in String (Built-in)
+
+### 📝 وصف المشكلة (Problem Description)
+
+المطلوب كتابة برنامج يستبدل كلمة معينة داخل الجملة بكلمة أخرى، باستخدام الدوال المدمجة (Built-in Functions) في لغة C++.
+
+### 💡 الفكرة البرمجية (Logic Breakdown)
+
+• نستخدم دالة البحث find() لمعرفة ما إذا كانت الكلمة المراد استبدالها (Target Word) موجودة أم لا.
+
+• نضع البحث داخل حلقة while لتتكرر طالما أن الدالة تجد الكلمة.
+
+• داخل الحلقة، نستخدم الدالة الجاهزة .replace(position, length, newString) والتي تأخذ مكان الكلمة القديمة، طول الكلمة القديمة لمسحها، والكلمة الجديدة لإدخالها.
+
+• نبحث مرة أخرى عن الكلمة لتحديث الـ position وإكمال الدورة إذا تكررت الكلمة في مكان آخر.
+
+### 💻 الكود المعتمد (Solution)
+
+<div dir="ltr">
+
+```cpp
+#include <iostream>
+#include <string>
+using namespace std;
+
+string ReadString(string message)
+{
+    string word;
+    cout << message;
+    getline(cin, word);
+    return word;
+}
+
+// Function to replace words using C++ string::replace
+string ReplaceWordInStringUsingBuiltInFunction(string str, string wordToReplace, string wordToReplaceWith)
+{
+    short pos = str.find(wordToReplace);
+
+    // Keep replacing as long as the word is found
+    while (pos != std::string::npos)
+    {
+        str.replace(pos, wordToReplace.length(), wordToReplaceWith);
+        
+        // Search again from the current state of the string
+        pos = str.find(wordToReplace);
+    }
+    
+    return str;
+}
+
+int main()
+{
+    cout << "\n-------------------------------------------------\n";
+    cout << "Problem #42 : Replace Words in String (Built-in)";
+    cout << "\n-------------------------------------------------\n\n";
+
+    string str = ReadString("Please enter your string     : ");
+    string wordToReplace = ReadString("Enter word to replace      : ");
+    string wordToReplaceWith = ReadString("Enter word to replace with : ");
+
+    cout << "\nYour string after Replace: \n" 
+         << ReplaceWordInStringUsingBuiltInFunction(str, wordToReplace, wordToReplaceWith);
+
+    cout << "\n\n-------------------------------------------------\n\n";
+    return 0;
+}
+
+```
+</div>
+
+### ⚖️ مقارنة حلي بحل الدكتور (Solution Comparison)
+
+• تتطابق شيفرتك تماماً مع نهج الدكتور. فكرة وضع find() قبل بداية الحلقة وفي نهايتها تضمن معالجة النص بأكمله بدقة، وهذه خوارزمية قياسية شائعة في التعامل مع الاستبدال النصي في برمجة الأنظمة.
+
+## 🧩 Problem #43: Replace Words in String (Custom Function)
+
+### 📝 وصف المشكلة (Problem Description)
+
+هذه المسألة تطوير للسابقة، والمطلوب استبدال الكلمات ولكن باستخدام دوالنا الخاصة التي قمنا ببنائها (Custom Functions) مثل التقطيع Split والدمج Join، مع إضافة خيار المطابقة الدقيقة لحالة الأحرف MatchCase.
+
+### 💡 الفكرة البرمجية (Logic Breakdown)
+
+• نقوم بتقسيم النص الأصلي إلى Vector من الكلمات باستخدام SplitString.
+
+• نمر على كل كلمة في هذا المتجه للبحث عن الكلمة المراد استبدالها.
+
+• المطابقة (Match Case):
+
+إذا كان المستخدم يريد MatchCase=true، نقارن بين الكلمتين كما هما تماماً (==).
+
+إذا كان يريد MatchCase=false، نحول الكلمتين مؤقتاً لحروف صغيرة LowerAllString ثم نقارن بينهما لضمان الحيادية، فمثلاً "AHMED" ستطابق "ahmed".
+
+• عندما نجد تطابقاً، نستبدل الكلمة داخل المتجه بالكلمة الجديدة.
+
+• أخيراً، نجمع كل كلمات المتجه مرة أخرى لنص واحد باستخدام JoinString.
+
+### 💻 الكود المعتمد (Solution)
+
+<div dir="ltr">
+
+```cpp
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+// (نفترض وجود دوال ReadString و SplitString و JoinString)
+
+// Helper function to lowercase entire string
+string LowerAllString(string S1)
+{
+    for (short i = 0; i < S1.length(); i++)
+    {
+        S1[i] = tolower(S1[i]);
+    }
+    return S1;
+}
+
+// Custom replace function using our own modules
+string ReplaceWordInStringUsingSplit(string str, string wordToReplace, string wordToReplaceWith, bool matchCase = true)
+{
+    vector<string> vWords = SplitString(str, " ");
+    
+    for (string &word : vWords)
+    {
+        if (matchCase)
+        {
+            if (word == wordToReplace)
+            {
+                word = wordToReplaceWith;
+            }
+        }
+        else
+        {
+            // Lowercase both sides temporarily just for the comparison
+            if (LowerAllString(word) == LowerAllString(wordToReplace))
+            {
+                word = wordToReplaceWith;
+            }
+        }
+    }
+    
+    return JoinString(vWords, " ");
+}
+
+int main()
+{
+    cout << "\n-------------------------------------------------\n";
+    cout << "Problem #43 : Replace Words (Custom Split/Join)";
+    cout << "\n-------------------------------------------------\n\n";
+
+    string str = "ahmed Alaa Ahmed Fawzy";
+    string wordToReplace = "ahmed";
+    string wordToReplaceWith = "Fars";
+    
+    cout << "Original String : " << str << "\n\n";
+
+    cout << "Replace with Matchcase (Strict): \n" 
+         << ReplaceWordInStringUsingSplit(str, wordToReplace, wordToReplaceWith, true) << "\n\n";
+
+    cout << "Replace without Matchcase (Case-Insensitive): \n" 
+         << ReplaceWordInStringUsingSplit(str, wordToReplace, wordToReplaceWith, false) << "\n";
+
+    cout << "\n-------------------------------------------------\n\n";
+    return 0;
+}
+```
+
+</div>
+
+### ⚖️ مقارنة حلي بحل الدكتور (Solution Comparison)
+
+• حلك والدكتور متطابقان في جوهر الخوارزمية، الفارق البسيط هو أنك استخدمت الـ المكررات iterator مع الـ while loop، بينما الدكتور استخدم الـ Ranged For Loop. استخدام الـ Ranged Loop هنا أفضل وأكثر نظافة (Clean Code) لأنه أسهل في القراءة ومناسب جداً عندما يكون هدفنا المرور الخطي على جميع العناصر من البداية للنهاية.
+
+## 🧩 Problem #44: Remove Punctuations
+
+### 📝 وصف المشكلة (Problem Description)
+
+المطلوب كتابة دالة تقوم بإزالة جميع علامات الترقيم (Punctuations) والرموز الخاصة (مثل #, @, !, إلخ) من جملة نصية وتُبقي فقط على الحروف والأرقام والمسافات.
+
+### 💡 الفكرة البرمجية (Logic Breakdown)
+
+• نُعرّف متغيراً نصياً فارغاً string str2 = "" ليحتوي على الجملة النظيفة.
+
+• نقوم بالمرور على جميع الحروف (Characters) الموجودة في النص الأصلي باستخدام for loop.
+
+• نستخدم دالة ispunct() التي تعرفنا عليها سابقاً (والتي تُرجع true إذا كان الحرف علامة ترقيم).
+
+• نعكس الشرط بوضع علامة النفي !. هذا يعني: "إذا لم يكن هذا الحرف علامة ترقيم، قم بإضافته للـ str2".
+
+### 💻 الكود المعتمد (Solution)
+
+<div dir="ltr">
+
+```cpp
+#include <iostream>
+#include <string>
+#include <cctype> // For ispunct function
+using namespace std;
+
+string ReadString(string message)
+{
+    string word;
+    cout << message;
+    getline(cin, word);
+    return word;
+}
+
+// Function to filter out punctuation characters
+string RemovePunctuationsFromString(string str)
+{
+    string str2 = "";
+    for (short i = 0; i < str.length(); i++)
+    {
+        // Only append if it's NOT a punctuation character
+        if (!ispunct(str[i]))
+        {
+            str2 += str[i];
+        }
+    }
+    return str2;
+}
+
+int main()
+{
+    cout << "\n-------------------------------------------------\n";
+    cout << "Problem #44 : Remove Punctuations";
+    cout << "\n-------------------------------------------------\n\n";
+
+    string str = ReadString("Please enter your string: ");
+    
+    cout << "\nYour string after removing punctuations: \n" 
+         << RemovePunctuationsFromString(str);
+
+    cout << "\n\n-------------------------------------------------\n\n";
+    return 0;
+}
+```
+
+</div>
+
+### ⚖️ مقارنة حلي بحل الدكتور (Solution Comparison)
+
+• مطابقة تامة لأسلوب الدكتور. الكود أنيق وسريع، واعتمادك على إمكانيات اللغة القياسية <cctype> يجعله أداءً مثالياً لتنظيف البيانات (Data Cleansing) قبل حفظها في قواعد البيانات.
+
+## 🧩 Problem #45: Convert Record To Line (Data Formatting)
+
+### 📝 وصف المشكلة (Problem Description)
+
+هذا الدرس مهم ومحوري. المطلوب أن نطلب من المستخدم إدخال بيانات عميل البنك (مثل رقم الحساب، الكود السري، الاسم، الهاتف، الرصيد)، ثم نُجمّع (Format) كل هذه البيانات في سطر نصي واحد (String Line) مع وضع محرف فاصل (Delimiter) بين كل جزء والثاني (مثل #//#).
+
+### 💡 الفكرة البرمجية (Logic Breakdown)
+
+• الهيكل (struct): يجب جمع الحقول المختلفة في هيكل واحد يُسمى stClient.
+
+• القراءة (Read): دالة تقوم بقراءة الحقول وملء الـ Struct.
+
+• التجميع (Formatting): نقوم بتعريف مُتغير نصي RecordLine. نجمع داخله كل خاصية من خواص الـ struct ونلصق بجوارها الفاصل (Separator).
+
+• التحويل للنوع النصي (Casting): الـ Struct يحتوي على رقم AccountBalance وهو من نوع double. السلسلة النصية لا تقبل ربطها بأرقام مباشرة؛ لذلك يجب تحويله أولاً لنص باستخدام دالة to_string() قبل لصقه.
+
+### 💻 الكود المعتمد (Solution)
+
+<div dir="ltr">
+
+```cpp
+#include <iostream>
+#include <string>
+using namespace std;
+
+// The Database Blueprint for a Client
+struct stClient
+{
+    string AccountNumber;
+    string PinCode;
+    string Name;
+    string Phone;
+    double AccountBalance;
+};
+
+stClient ReadNewClient()
+{
+    stClient Client;
+    
+    cout << "Enter Account Number? ";
+    getline(cin, Client.AccountNumber);
+    
+    cout << "Enter PinCode? ";
+    getline(cin, Client.PinCode);
+    
+    cout << "Enter Name? ";
+    getline(cin, Client.Name);
+    
+    cout << "Enter Phone? ";
+    getline(cin, Client.Phone);
+    
+    cout << "Enter AccountBalance? ";
+    cin >> Client.AccountBalance;
+    
+    return Client;
+}
+
+// Data Formatting function
+string ConvertRecordToLine(stClient Client, string Seperator = "#//#")
+{
+    string stClientRecord = "";
+    
+    // Concatenate fields with the chosen separator
+    stClientRecord += Client.AccountNumber + Seperator;
+    stClientRecord += Client.PinCode + Seperator;
+    stClientRecord += Client.Name + Seperator;
+    stClientRecord += Client.Phone + Seperator;
+    
+    // Cast the double property into string to allow concatenation
+    stClientRecord += to_string(Client.AccountBalance);
+    
+    return stClientRecord;
+}
+
+int main()
+{
+    cout << "\n-------------------------------------------------\n";
+    cout << "Problem #45 : Convert Record to Line";
+    cout << "\n-------------------------------------------------\n\n";
+
+    stClient Client = ReadNewClient();
+    
+    cout << "\nYour string after convert record to line : \n" 
+         << ConvertRecordToLine(Client);
+
+    cout << "\n\n-------------------------------------------------\n\n";
+    return 0;
+}
+```
+
+</div>
+
+### 🛠️ ملاحظات هندسية (Engineering Notes)
+
+• قواعد البيانات النصية (Flat-File DB): لماذا نفعل ذلك؟ هذا التنسيق هو الطريقة التي تفهم بها الملفات (مثل clients.txt) كيف تخزن البيانات دون أن تختلط. عندما تريد كتابة البيانات إلى الملف، لا يمكنك كتابة الـ Struct بكامله، بل يجب عليك أولاً "تسطيحه" وتجميعه في نص واحد بهذا الشكل.
+
+### ⚖️ مقارنة حلي بحل الدكتور (Solution Comparison)
+
+• حلك متطابق 100% مع حل الدكتور. استخدامك لمتغير الـ Seperator كمُعامل افتراضي (Default Parameter) هو لمسة هندسية تُعطي للدالة مرونة رائعة (حيث يمكنك استدعاؤها للعمل مع ملفات تفصل بـ الفاصلة , مثل ملفات CSV بدون الحاجة لتغيير هيكل الدالة).
+
+## 🧩 Problem #46: Convert Line Data to Record (Data Parsing)
+
+### 📝 وصف المشكلة (Problem Description)
+
+العملية العكسية تماماً للمسألة السابقة. تخيل أنك الآن تقرأ بيانات من الـ clients.txt. البيانات ستأتي على شكل سطر نصي واحد ضخم متصل بـ الديليمتير #//#. المطلوب هو تقطيع (Parse) هذا السطر وفصله وإعادة تعبئة خواص الـ struct الخاص بالعميل بالترتيب.
+
+### 💡 الفكرة البرمجية (Logic Breakdown)
+
+• التقطيع (SplitString): نرسل السطر الضخم لدالة القص التي قمنا بإنشائها في المسألة 37. هذه الدالة ستقوم بقطعه عند كل #//# وترجع لنا vector من 5 أجزاء (نصوص).
+
+• إعادة التعبئة (Mapping): نُعرّف عميلاً جديداً stClient، ونقوم بربط خصائصه بمواقع المتجه بالترتيب:
+
+الأول للرقم vClientData[0]، والثاني للكود، وهكذا.
+
+• استرجاع نوع البيانات (Casting back): الجزء الخامس vClientData[4] يحتوي على رصيد الحساب ولكنه الآن من نوع نصي (string) لأن الفيكتور لا يقبل إلا نصوصاً. لإسناده لخاصية AccountBalance (التي هي double) يجب إرجاعه لنوعه الحقيقي باستخدام الدالة المدمجة stod() (وهي تعني String to Double).
+
+### 💻 الكود المعتمد (Solution)
+
+<div dir="ltr">
+
+```cpp
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+// (نفترض وجود دالة SplitString و هيكل بيانات العميل stClient من الدروس السابقة)
+
+// Data Parsing function
+stClient ConvertLinetoRecord(string Line, string Seperator = "#//#")
+{
+    stClient Client;
+    
+    // 1. Split the massive string into clean Vector elements
+    vector<string> vClientData = SplitString(Line, Seperator);
+    
+    // 2. Map vector elements back to struct properties
+    Client.AccountNumber = vClientData[0];
+    Client.PinCode       = vClientData[1];
+    Client.Name          = vClientData[2];
+    Client.Phone         = vClientData[3];
+    
+    // 3. Cast the balance from String back to Double
+    Client.AccountBalance = stod(vClientData[4]);
+    
+    return Client;
+}
+
+void PrintClientRecord(stClient Client)
+{
+    cout << "\n--- The following is the extracted client record ---\n";
+    cout << "\nAccount Number : " << Client.AccountNumber;
+    cout << "\nPin Code       : " << Client.PinCode;
+    cout << "\nName           : " << Client.Name;
+    cout << "\nPhone          : " << Client.Phone;
+    cout << "\nAccount Balance: " << Client.AccountBalance << endl;
+}
+
+int main()
+{
+    cout << "\n-------------------------------------------------\n";
+    cout << "Problem #46 : Convert Line Data to Record";
+    cout << "\n-------------------------------------------------\n\n";
+
+    // Simulating a string read directly from a text file (clients.txt)
+    string stLine = "12345#//#54321#//#Ahmed Alaa#//#01000000000#//#1000.000000";
+    
+    cout << "Line Record Input :\n" << stLine << "\n";
+
+    stClient Client = ConvertLinetoRecord(stLine);
+    PrintClientRecord(Client);
+
+    cout << "\n-------------------------------------------------\n\n";
+    return 0;
+}
+
+```
+</div>
+
+### 🛠️ ملاحظات هندسية (Engineering Notes)
+
+• دوال التحويل (Casting Functions): في لغة ++C الحديثة هناك دوال فعالة وسريعة لتحويل النصوص لأرقام يجب أن تحفظها مثل اسمك:
+
+stoi(string) : لتحويل النص إلى Integer.
+
+stod(string) : لتحويل النص إلى Double.
+
+stof(string) : لتحويل النص إلى Float.
+
+### ⚖️ مقارنة حلي بحل الدكتور (Solution Comparison)
+
+• مطابق تماماً 100%. في هذا الدرس أنت طبقت حرفياً عملية الـ De-serialization للبيانات. وهي مهارة تُميز مطوري الخلفيات المحترفين (Backend Engineers)، حيث قمت بفك تشفير البيانات وتغليفها داخل نموذج برمجي Object/Struct ليتمكن باقي النظام من فهمها.
+
 </div>
